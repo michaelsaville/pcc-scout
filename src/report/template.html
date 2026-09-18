@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #1a1a1a;
+    }
+
+    .page {
+      page-break-after: always;
+      padding: 60px 50px;
+      min-height: 100vh;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* === COVER === */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 80px 50px;
+    }
+
+    .cover-logo {
+      max-width: 240px;
+      max-height: 100px;
+      margin-bottom: 48px;
+    }
+
+    .cover-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .cover-type {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cover-meta {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .cover-footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 2px solid var(--accent);
+      font-size: 11px;
+      color: #999;
+    }
+
+    .cover-footer strong {
+      color: var(--accent);
+    }
+
+    /* === EXECUTIVE SUMMARY === */
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .summary-grid {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .summary-card {
+      flex: 1;
+      background: #f5f5f5;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      border-left: 4px solid var(--accent);
+    }
+
+    .summary-card.severity-clear { border-left-color: #4caf50; }
+    .summary-card.severity-amber { border-left-color: #ff9800; }
+    .summary-card.severity-red { border-left-color: #f44336; }
+
+    .summary-value {
+      font-size: 36px;
+      font-weight: 700;
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .summary-card.severity-clear .summary-value { color: #4caf50; }
+    .summary-card.severity-amber .summary-value { color: #ff9800; }
+    .summary-card.severity-red .summary-value { color: #f44336; }
+
+    .summary-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #888;
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .breakdown-table th,
+    .breakdown-table td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 12px;
+    }
+
+    .breakdown-table th {
+      background: #f5f5f5;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      color: #666;
+    }
+
+    .breakdown-count {
+      font-weight: 700;
+      color: #f44336;
+    }
+
+    /* === DEVICE TABLE === */
+    .device-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      font-size: 10px;
+    }
+
+    .device-table th,
+    .device-table td {
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .device-table th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 9px;
+      letter-spacing: 0.5px;
+    }
+
+    .device-table tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    .device-table tr.flagged-amber {
+      background: #fff8e1;
+    }
+
+    .device-table tr.flagged-red {
+      background: #ffebee;
+    }
+
+    .flag-badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: 600;
+      margin: 1px 2px;
+      color: #fff;
+    }
+
+    .flag-badge.badge-red { background: #f44336; }
+    .flag-badge.badge-amber { background: #ff9800; }
+
+    /* === FLAGS DETAIL === */
+    .flag-detail {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #f9f9f9;
+      border-left: 4px solid #ff9800;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .flag-detail-host {
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+
+    .flag-detail-meta {
+      font-size: 10px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .flag-item {
+      margin-bottom: 8px;
+      padding-left: 12px;
+      border-left: 2px solid #ff9800;
+    }
+
+    .flag-item-name {
+      font-weight: 700;
+      color: #f44336;
+      font-size: 12px;
+    }
+
+    .flag-item-desc {
+      font-size: 11px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .flag-item-remediation {
+      font-size: 11px;
+      color: #2196f3;
+      margin-top: 2px;
+    }
+
+    /* === PAGE FOOTER === */
+    .page-footer {
+      position: fixed;
+      bottom: 20px;
+      left: 50px;
+      right: 50px;
+      font-size: 9px;
+      color: #bbb;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #eee;
+      padding-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <script id="scan-data" type="application/json">__SCAN_DATA__</script>
+  <script id="branding-data" type="application/json">__BRANDING_DATA__</script>
+
+  <script>
+    const scanData = JSON.parse(document.getElementById('scan-data').textContent);
+    const branding = JSON.parse(document.getElementById('branding-data').textContent);
+
+    const accent = branding.primary_color || '#2196f3';
+    document.documentElement.style.setProperty('--accent', accent);
+
+    const FLAG_DESCRIPTIONS = {
+      'Telnet enabled': {
+        desc: 'Telnet (port 23) transmits data including credentials in plaintext, making it vulnerable to eavesdropping.',
+        fix: 'Disable Telnet and replace with SSH (port 22) for remote management.'
+      },
+      'RDP exposed': {
+        desc: 'Remote Desktop Protocol (port 3389) is exposed to the network, which is a common target for brute-force and exploitation attacks.',
+        fix: 'Restrict RDP access via firewall rules or VPN. Enable Network Level Authentication (NLA) and use strong passwords/MFA.'
+      },
+      'VNC exposed': {
+        desc: 'VNC (port 5900) provides remote desktop access and is often weakly secured.',
+        fix: 'Disable VNC if not needed, or restrict access via firewall. Use SSH tunneling for remote access instead.'
+      },
+      'End of life OS detected': {
+        desc: 'This device is running an operating system that no longer receives security updates from the vendor.',
+        fix: 'Plan migration to a supported operating system. If immediate upgrade is not possible, isolate the device on a separate network segment.'
+      },
+      'Anonymous SMB potentially exposed': {
+        desc: 'SMB file sharing (port 445) is open on a device with no hostname, which may indicate anonymous/guest access to shared folders.',
+        fix: 'Disable anonymous SMB access. Ensure all shares require authentication and review share permissions.'
+      }
+    };
+
+    function render() {
+      document.body.innerHTML = '';
+
+      // Cover page
+      renderCover();
+
+      // Executive summary
+      renderSummary();
+
+      // Device inventory
+      renderInventory();
+
+      // Flags detail
+      renderFlagsDetail();
+    }
+
+    function renderCover() {
+      const page = el('div', 'page cover');
+      if (branding.logo_base64) {
+        const img = document.createElement('img');
+        img.src = branding.logo_base64;
+        img.className = 'cover-logo';
+        page.appendChild(img);
+      }
+      page.appendChild(elText('div', scanData.scan_label, 'cover-title'));
+      page.appendChild(elText('div', scanData.scan_type, 'cover-type'));
+      page.appendChild(elText('div', `Subnet: ${scanData.subnet}`, 'cover-meta'));
+      page.appendChild(elText('div', `Date: ${new Date(scanData.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`, 'cover-meta'));
+
+      const footer = el('div', 'cover-footer');
+      footer.innerHTML = `Generated by <strong>${branding.company_name || 'PCC — Precision Computers & Consulting'}</strong><br>Powered by PCC Scout`;
+      page.appendChild(footer);
+
+      document.body.appendChild(page);
+    }
+
+    function renderSummary() {
+      const page = el('div', 'page');
+      page.appendChild(elText('div', 'Executive Summary', 'section-title'));
+
+      const grid = el('div', 'summary-grid');
+
+      const devCard = el('div', 'summary-card');
+      devCard.innerHTML = `<span class="summary-value" style="color:${accent}">${scanData.summary.total_devices}</span><span class="summary-label">Devices Found</span>`;
+      grid.appendChild(devCard);
+
+      const flagCount = scanData.summary.total_flags;
+      const severity = flagCount === 0 ? 'clear' : flagCount <= 3 ? 'amber' : 'red';
+      const flagCard = el('div', `summary-card severity-${severity}`);
+      flagCard.innerHTML = `<span class="summary-value">${flagCount}</span><span class="summary-label">Security Flags</span>`;
+      grid.appendChild(flagCard);
+
+      const flaggedCard = el('div', 'summary-card');
+      flaggedCard.innerHTML = `<span class="summary-value" style="color:${accent}">${scanData.summary.flagged_devices}</span><span class="summary-label">Flagged Devices</span>`;
+      grid.appendChild(flaggedCard);
+
+      page.appendChild(grid);
+
+      // Breakdown table
+      const breakdown = scanData.summary.flag_breakdown;
+      const keys = Object.keys(breakdown);
+      if (keys.length > 0) {
+        const table = document.createElement('table');
+        table.className = 'breakdown-table';
+        table.innerHTML = '<thead><tr><th>Flag</th><th>Count</th></tr></thead>';
+        const tbody = document.createElement('tbody');
+        for (const key of keys) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${key}</td><td class="breakdown-count">${breakdown[key]}</td>`;
+          tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        page.appendChild(table);
+      }
+
+      document.body.appendChild(page);
+    }
+
+    function renderInventory() {
+      const page = el('div', 'page');
+      page.appendChild(elText('div', 'Device Inventory', 'section-title'));
+
+      const table = document.createElement('table');
+      table.className = 'device-table';
+      table.innerHTML = '<thead><tr><th>IP Address</th><th>Hostname</th><th>MAC</th><th>Vendor</th><th>OS</th><th>Flags</th></tr></thead>';
+
+      const tbody = document.createElement('tbody');
+      for (const d of scanData.devices) {
+        const tr = document.createElement('tr');
+        const flagCount = (d.flags || []).length;
+        if (flagCount >= 3) tr.className = 'flagged-red';
+        else if (flagCount > 0) tr.className = 'flagged-amber';
+
+        const flagsHtml = (d.flags || []).map(f => {
+          const cls = f.includes('End of life') || f.includes('Telnet') ? 'badge-red' : 'badge-amber';
+          return `<span class="flag-badge ${cls}">${f}</span>`;
+        }).join('');
+
+        tr.innerHTML = `
+          <td>${d.ip || '—'}</td>
+          <td>${d.hostname || '—'}</td>
+          <td style="font-family:monospace;font-size:9px">${d.mac || '—'}</td>
+          <td>${d.vendor || '—'}</td>
+          <td>${d.os_guess || '—'}${d.os_confidence ? ' (' + d.os_confidence + '%)' : ''}</td>
+          <td>${flagsHtml || '—'}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+      table.appendChild(tbody);
+      page.appendChild(table);
+
+      document.body.appendChild(page);
+    }
+
+    function renderFlagsDetail() {
+      const flaggedDevices = scanData.devices.filter(d => d.flags && d.flags.length > 0);
+      if (flaggedDevices.length === 0) return;
+
+      const page = el('div', 'page');
+      page.appendChild(elText('div', 'Security Findings — Detail', 'section-title'));
+
+      for (const d of flaggedDevices) {
+        const detail = el('div', 'flag-detail');
+
+        const host = elText('div', `${d.ip}${d.hostname ? ' (' + d.hostname + ')' : ''}`, 'flag-detail-host');
+        detail.appendChild(host);
+
+        const meta = elText('div', [
+          d.mac ? `MAC: ${d.mac}` : null,
+          d.vendor ? `Vendor: ${d.vendor}` : null,
+          d.os_guess ? `OS: ${d.os_guess}` : null,
+        ].filter(Boolean).join(' | '), 'flag-detail-meta');
+        detail.appendChild(meta);
+
+        for (const flag of d.flags) {
+          const item = el('div', 'flag-item');
+          item.appendChild(elText('div', flag, 'flag-item-name'));
+          const info = FLAG_DESCRIPTIONS[flag] || { desc: 'Security concern identified.', fix: 'Investigate and remediate.' };
+          item.appendChild(elText('div', info.desc, 'flag-item-desc'));
+          item.appendChild(elText('div', '→ Remediation: ' + info.fix, 'flag-item-remediation'));
+          detail.appendChild(item);
+        }
+
+        page.appendChild(detail);
+      }
+
+      document.body.appendChild(page);
+    }
+
+    // Helpers
+    function el(tag, className) {
+      const e = document.createElement(tag);
+      if (className) e.className = className;
+      return e;
+    }
+
+    function elText(tag, text, className) {
+      const e = el(tag, className);
+      e.textContent = text;
+      return e;
+    }
+
+    render();
+  </script>
+</body>
+</html>

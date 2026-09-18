@@ -1,0 +1,21 @@
+{
+  "name": "pcc-scout",
+  "version": "1.0.0",
+  "description": "Pre-deployment network assessment tool for Precision Computers & Consulting",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "start:collector": "electron src/collector/main.js",
+    "build": "electron-builder --config electron-builder.workbench.json",
+    "build:collector": "electron-builder --config electron-builder.collector.json"
+  },
+  "dependencies": {
+    "puppeteer": "^24.0.0",
+    "node-nmap": "^4.0.0",
+    "uuid": "^11.0.0"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^25.0.0"
+  }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+  <title>Network Scan</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- WELCOME -->
+  <section id="screen-welcome" class="screen">
+    <div class="card">
+      <div class="eyebrow" id="welcome-msp">Precision Computers &amp; Consulting</div>
+      <h1 id="welcome-title">Network scan for <span id="welcome-prospect">your organization</span></h1>
+      <p class="lede">
+        This will take about 10 minutes. You can keep working while it runs.
+        No passwords, document contents, or personal files are collected.
+      </p>
+      <ul class="checklist">
+        <li>Inventories devices on this network</li>
+        <li>Identifies operating systems and shared folders</li>
+        <li>Flags security risks for your IT team</li>
+      </ul>
+      <button id="start-btn" class="btn btn-primary">Start scan</button>
+      <div class="footer-meta">
+        <div><strong>Signed by:</strong> PCC 2K, LLC</div>
+        <div><strong>Verify ID:</strong> <code id="welcome-fingerprint">—</code></div>
+        <div><a href="#" id="welcome-whatwedo">What does this scan do?</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUNNING -->
+  <section id="screen-running" class="screen hidden">
+    <div class="card">
+      <h1>Scanning the network…</h1>
+      <p class="lede" id="running-phase">Starting…</p>
+      <div class="progress-track"><div id="progress-bar" class="progress-fill" style="width: 2%"></div></div>
+      <p class="progress-percent"><span id="progress-percent">2%</span></p>
+      <button id="abort-btn" class="btn btn-ghost btn-sm">Cancel</button>
+    </div>
+  </section>
+
+  <!-- DONE (push success) -->
+  <section id="screen-done-push" class="screen hidden">
+    <div class="card">
+      <div class="check-icon">✓</div>
+      <h1>All set</h1>
+      <p class="lede">
+        Results sent to <span id="done-msp">your IT team</span>. They'll follow up shortly.
+        You can close this window.
+      </p>
+      <button id="close-btn" class="btn btn-primary">Close</button>
+    </div>
+  </section>
+
+  <!-- DONE (fallback to file) -->
+  <section id="screen-done-file" class="screen hidden">
+    <div class="card">
+      <div class="warn-icon">!</div>
+      <h1>One more step</h1>
+      <p class="lede">
+        We couldn't upload automatically — your network probably blocks the upload.
+        A results file was saved to your Desktop. Please email it to your IT team.
+      </p>
+      <div class="file-box">
+        <div class="file-label">Results file:</div>
+        <code id="file-path">—</code>
+        <button id="open-file-btn" class="btn btn-ghost btn-sm">Show in folder</button>
+      </div>
+      <button id="mailto-btn" class="btn btn-primary">Open email</button>
+      <button id="close-btn-2" class="btn btn-ghost">Close</button>
+    </div>
+  </section>
+
+  <!-- ERROR -->
+  <section id="screen-error" class="screen hidden">
+    <div class="card">
+      <div class="warn-icon">!</div>
+      <h1>Scan didn't finish</h1>
+      <p class="lede" id="error-message">Something went wrong.</p>
+      <p class="muted">Please share this with your IT team so they can investigate.</p>
+      <button id="error-close-btn" class="btn btn-primary">Close</button>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

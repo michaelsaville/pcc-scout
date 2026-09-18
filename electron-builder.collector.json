@@ -1,0 +1,23 @@
+{
+  "appId": "com.pcc.scout.collector",
+  "productName": "PCC Scout Collector",
+  "directories": { "output": "dist/collector" },
+  "extraMetadata": { "main": "src/collector/main.js" },
+  "files": [
+    "src/collector/**/*",
+    "config/collector.json",
+    "!src/renderer/**/*",
+    "!src/scanner/**/*",
+    "!src/report/**/*",
+    "!src/main.js",
+    "!src/preload.js"
+  ],
+  "win": {
+    "target": "portable",
+    "artifactName": "pcc-scout-collector-${env.PROSPECT_SLUG}.${ext}",
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "portable": {
+    "unicode": true
+  }
+}

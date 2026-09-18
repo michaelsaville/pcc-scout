@@ -1,0 +1,8 @@
+node_modules/
+dist/
+config/pcc-scout.json
+output/
+assets/user-logo.*
+
+# real collector token lives here
+config/collector.json

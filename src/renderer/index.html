@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' file: data:;">
+  <title>PCC Scout</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ========== SETUP / BRANDING SCREEN ========== -->
+  <div id="screen-setup" class="screen hidden">
+    <div class="setup-container">
+      <h1 class="setup-title">PCC Scout Setup</h1>
+      <p class="setup-subtitle">Configure your branding before generating reports</p>
+
+      <div class="form-group">
+        <label for="setup-company">Company Name</label>
+        <input type="text" id="setup-company" placeholder="Precision Computers & Consulting">
+      </div>
+
+      <div class="form-group">
+        <label for="setup-color">Primary Accent Color</label>
+        <div class="color-row">
+          <input type="color" id="setup-color" value="#2196f3">
+          <span id="setup-color-hex" class="color-hex">#2196f3</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Company Logo</label>
+        <button id="setup-logo-btn" class="btn btn-secondary">Choose Logo File...</button>
+        <div id="setup-logo-preview" class="logo-preview hidden">
+          <img id="setup-logo-img" alt="Logo preview">
+        </div>
+      </div>
+
+      <button id="setup-save-btn" class="btn btn-primary btn-lg">Save &amp; Continue</button>
+    </div>
+  </div>
+
+  <!-- ========== MAIN SCREEN ========== -->
+  <div id="screen-main" class="screen hidden">
+    <header class="main-header">
+      <h1>PCC Scout</h1>
+      <button id="main-settings-btn" class="btn btn-ghost">Settings</button>
+    </header>
+
+    <div class="main-grid">
+      <!-- SCAN CONFIG -->
+      <section class="panel" id="panel-config">
+        <h2 class="panel-title">Scan Configuration</h2>
+
+        <div class="form-group">
+          <label for="scan-subnet">Target Subnet</label>
+          <div class="input-row">
+            <input type="text" id="scan-subnet" placeholder="192.168.1.0/24">
+            <button id="scan-autodetect" class="btn btn-secondary btn-sm">Auto-Detect</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="scan-label">Scan Label / Site Name</label>
+          <input type="text" id="scan-label" placeholder="Acme Corp - Pre-Sales Assessment">
+        </div>
+
+        <div class="form-group">
+          <label for="scan-type">Scan Type</label>
+          <select id="scan-type">
+            <option value="Pre-Sales Assessment">Pre-Sales Assessment</option>
+            <option value="Onboarding Baseline">Onboarding Baseline</option>
+            <option value="Annual Audit">Annual Audit</option>
+          </select>
+        </div>
+
+        <button id="scan-start-btn" class="btn btn-primary btn-lg">Start Scan</button>
+      </section>
+
+      <!-- SCAN PROGRESS -->
+      <section class="panel" id="panel-progress">
+        <h2 class="panel-title">Scan Progress</h2>
+
+        <div class="progress-status">
+          <span id="progress-phase" class="phase-text">Idle</span>
+          <span id="progress-percent" class="phase-percent"></span>
+        </div>
+
+        <div class="progress-bar-track">
+          <div id="progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+        </div>
+
+        <div id="progress-log" class="log-output">
+          <div class="log-placeholder">Scan output will appear here...</div>
+        </div>
+      </section>
+
+      <!-- RESULTS SUMMARY -->
+      <section class="panel" id="panel-results">
+        <h2 class="panel-title">Results Summary</h2>
+
+        <div id="results-placeholder" class="results-placeholder">
+          <p>Run a scan to see results</p>
+        </div>
+
+        <div id="results-content" class="hidden">
+          <div class="results-stats">
+            <div class="stat-card">
+              <span class="stat-value" id="result-devices">0</span>
+              <span class="stat-label">Devices Found</span>
+            </div>
+            <div class="stat-card" id="result-flags-card">
+              <span class="stat-value" id="result-flags">0</span>
+              <span class="stat-label">Flags Raised</span>
+            </div>
+          </div>
+
+          <div id="results-breakdown" class="flag-breakdown hidden">
+            <h3>Flag Breakdown</h3>
+            <ul id="results-breakdown-list"></ul>
+          </div>
+
+          <div class="results-actions">
+            <button id="result-report-btn" class="btn btn-primary">Generate Report</button>
+            <button id="result-json-btn" class="btn btn-secondary">Export JSON</button>
+            <button id="result-open-btn" class="btn btn-ghost">Open Output Folder</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

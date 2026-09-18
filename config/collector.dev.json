@@ -1,0 +1,9 @@
+{
+  "prospect_id": "dev-prospect",
+  "prospect_name": "Development Prospect",
+  "msp_name": "Precision Computers & Consulting",
+  "tech_email": "tech@pcc2k.com",
+  "cloud_url": "http://localhost:3003/api/v1/scan",
+  "token": "dev-token-not-for-production",
+  "fingerprint": "DEV-0000"
+}

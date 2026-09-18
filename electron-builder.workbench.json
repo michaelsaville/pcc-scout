@@ -1,0 +1,17 @@
+{
+  "appId": "com.pcc.scout.workbench",
+  "productName": "PCC Scout",
+  "directories": { "output": "dist/workbench" },
+  "files": [
+    "src/main.js",
+    "src/preload.js",
+    "src/renderer/**/*",
+    "src/scanner/**/*",
+    "src/report/**/*",
+    "assets/**/*",
+    "config/**/*",
+    "!src/collector/**/*"
+  ],
+  "mac": { "target": "dmg" },
+  "win": { "target": "nsis" }
+}
